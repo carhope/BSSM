@@ -1,12 +1,14 @@
 #include <stdio.h>
+struct score{
+        int kor ;
+        int eng;
+        int math;
+};
 int main(){
-    char a;
-    scnaf("선생님이 기침을 하면?%c",&a);
-    if(a == "세미콜론"){
-        printf("정답!!ㅋㅋㅋㅋ")
-    }
+    struct score yuni = {90,80,70};
+    struct score* ps = &yuni;
 
-    else{
-        printf("세미콜론 엌ㅋㅋㅋㅋ 이걸 몰라 ㅋㅋㅋ%c는 뭘깤ㅋㅋㅋㅋ",a);
-    }
+printf("국어 : %d\n",(*ps).kor);
+printf("영어 : %d\n",ps ->eng);
+printf("수학 : %d\n",ps ->math);
 }

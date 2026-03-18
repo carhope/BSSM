@@ -1,14 +1,13 @@
 #include <stdio.h>
 int main(){
-    int arr[5];
+    int a;
+    int* ptr;
+    ptr =&a;
+    *ptr =10;
 
-    arr[0]=10;
-    arr[1]=20;
-    arr[2]=arr[0]+arr[1];
-    scanf("%d", &arr[3]);
-
-    printf("%d\n",arr[2]);
-    printf("%d\n",arr[3]);
-    printf("%d\n",arr[4]);
-    return 0;
+    
+    printf("포인터로 a값 출력 : %d\n", *ptr);
+    printf("변수명으로 a값 출력 : %d\n", a);
+    printf("포인터 ptr의 값 : %p\n", ptr);
+    printf("변수 a의 주소: %p\n", &a);
 }
