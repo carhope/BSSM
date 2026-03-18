@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../non.py"
+		},
+		{
+			"path": "../web"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "web"
+	}
+}
