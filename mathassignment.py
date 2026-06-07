@@ -15,15 +15,13 @@ def get_permutations(arr, r):
 
     result = []
     for i in range(len(arr)):
-        selected = arr[i] #하니 선택
+        selected = arr[i] #하나 선택
         rest = arr[:i] + arr[i + 1:] #선택한거 제외 앞뒤 가져옴
 
         # TODO: rest에서 r-1개를 뽑는 순열을 구하고 selected와 연결하기
-        print(selected)
-        print(rest)
         for j in get_permutations(rest, r-1):
             result.append([selected] + j)
-            print(rest)
+
             
 
     return result
@@ -43,8 +41,13 @@ def get_combinations(arr, r):
     # TODO: first를 포함하는 조합: rest에서 r-1개를 뽑은 결과 앞에 first 붙이기
     include_first = []
 
+    for i in get_combinations(rest, r-1):
+        include_first.append([first] + i)
+
     # TODO: first를 포함하지 않는 조합: rest에서 r개를 뽑기
     exclude_first = []
+    for k in get_combinations(rest, r):
+        exclude_first.append(k)
 
     return include_first + exclude_first
 
@@ -53,18 +56,23 @@ def solve_problem_a():
     """문제 A 검증용 함수: 조건에 맞는 순열 개수를 직접 세어 보세요."""
     letters = ['a', 'e', 'b', 'c', 'd']
     cases = get_permutations(letters, 5)
-
+    print(cases)
     adjacent_count = 0
     for case in cases:
         # TODO: a와 e의 위치 차이가 1인지 확인하세요.
-        pass
+        for k in range(len(case)-1):
+            if case[k] + case[k+1] in ['ea','ae']:
+                adjacent_count +=1
+                print(case[k] + case[k+1])
+
 
     alternating_count = 0
     vowels = ['a', 'e']
     consonants = ['b', 'c', 'd']
     for case in cases:
         # TODO: 각 위치의 모음/자음 패턴이 교대로 나타나는지 확인하세요.
-        pass
+        if case in vowels and next in consonants:
+            alternating_count +=1
 
     print('문제 A (1):', adjacent_count)
     print('문제 A (2):', alternating_count)
@@ -92,7 +100,7 @@ def solve_problem_b():
 if __name__ == '__main__':
     # 함수가 완성되면 아래 주석을 해제해서 실행하세요.
     print(get_permutations(['A', 'B', 'C'], 2))
-    # print(get_combinations(['A', 'B', 'C'], 2))
-    # solve_problem_a()
+    print(get_combinations(['A', 'B', 'C'], 2))
+    solve_problem_a()
     # solve_problem_b()
     pass
