@@ -12,3 +12,18 @@ int main(){
         default : printf("자음"); break;
     }
 }
+#include <stdio.h>
+int main(){
+	int a;
+	scanf("%d",&a);
+	switch(a){
+		case 89 : printf("A");
+
+		case 79:printf("B");
+		case 69:printf("C");
+		case 59:printf("D");
+        case 'd':printf("D");
+		default : printf("E");
+
+	}
+}
