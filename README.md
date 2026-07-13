@@ -4,7 +4,7 @@
 # 구성
 BSSM
 ├── C [x]
-├── Python [ ]
+├── Python [x]
 ├── Web [ ]
 ├── Database [ ]
 ├── ComputerArchitecture [ ]
