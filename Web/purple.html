@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>고죠 사토루 - 술식 재현 (정보 폭발 수정 v2)</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background-color: #050508;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: 'Noto Sans KR', sans-serif;
+      perspective: 2000px; /* 고속 터널 연출을 위해 perspective 값 증가 */
+    }
+
+    /* 전체 연출을 감싸는 컨테이너 */
+    .stage {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* -----------------------------------------
+       1. 허식 「무라사키」 관련 스타일 (유지)
+    ------------------------------------------ */
+    .energy {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      opacity: 0;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .blue {
+      background: radial-gradient(circle, #fff 10%, #00d2ff 40%, #0033ff 80%);
+      box-shadow: 0 0 30px #0055ff, 0 0 60px #0011ff, inset 0 0 20px #fff;
+    }
+
+    .red {
+      background: radial-gradient(circle, #fff 10%, #ff0055 40%, #ff0000 80%);
+      box-shadow: 0 0 30px #ff0000, 0 0 60px #aa0000, inset 0 0 20px #fff;
+    }
+
+    .purple-core {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, #ffffff 0%, #da70d6 30%, #9400d3 60%, #4b0082 100%);
+      border-radius: 50%;
+      opacity: 0;
+      transform: scale(0);
+      mix-blend-mode: screen;
+      filter: blur(2px);
+      pointer-events: none;
+    }
+
+    .distortion {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border: 2px solid rgba(148, 0, 211, 0.5);
+      border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+      opacity: 0;
+      transform: scale(0);
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
+    /* -----------------------------------------
+       2. 영역전개 「무량공처」 - 정보 폭발 v2 (MODIFIED)
+    ------------------------------------------ */
+    
+    /* 전체 무량공처 컨테이너 */
+    .void-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 10;
+      overflow: hidden; /* 정보 터널이 화면 밖으로 나가지 않도록 */
+    }
+
+    /* 2-1. 정보 폭발 단계 (Image 0 & 1 기반 개선) */
+    .information-tunnel {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      transform: scale(1);
+      opacity: 0;
+    }
+
+    /* 2-1-1. 블랙홀 및 주변 우주 (Image 0 기반) */
+    .void-blackhole {
+      position: absolute;
+      width: 40vw; /* 거대한 블랙홀 */
+      height: 40vw;
+      border-radius: 50%;
+      background: #000;
+      mix-blend-mode: color-dodge;
+      box-shadow: 
+        0 0 10vw 5vw #ba00ff, 
+        0 0 15vw 10vw #00d2ff, 
+        0 0 20vw 15vw #ba00ff,
+        inset 0 0 10vw #fff;
+      transform: scale(0);
+      filter: blur(10px);
+    }
+    
+    /* 블랙홀 주변 우주 먼지 */
+    .void-space-dust {
+      position: absolute;
+      width: 150%;
+      height: 150%;
+      background: repeating-linear-gradient(
+        22.5deg,
+        rgba(186, 0, 255, 0.1) 0px, rgba(186, 0, 255, 0.1) 2px, transparent 2px, transparent 15px,
+        rgba(0, 210, 255, 0.1) 15px, rgba(0, 210, 255, 0.1) 17px, transparent 17px, transparent 30px
+      );
+      mix-blend-mode: screen;
+      transform: scale(1);
+      opacity: 0;
+    }
+
+    /* 2-1-2. 고속 터널 및 정보 스파크 (Image 1 기반 개선) */
+    .tunnel-stream {
+      position: absolute;
+      width: 200%; /* 화면보다 크게 */
+      height: 200%;
+      background: repeating-linear-gradient(
+        45deg,
+        #f00 0px, #f00 2px, transparent 2px, transparent 15px, /* 적 */
+        #ff0 15px, #ff0 17px, transparent 17px, transparent 30px, /* 황 */
+        #0f0 30px, #0f0 32px, transparent 32px, transparent 45px, /* 녹 */
+        #0ff 45px, #0ff 47px, transparent 47px, transparent 60px, /* 청 */
+        #00f 60px, #00f 62px, transparent 62px, transparent 75px, /* 남 */
+        #f0f 75px, #f0f 77px, transparent 77px, transparent 90px /* 자 */
+      );
+      mix-blend-mode: screen;
+      filter: blur(1px);
+    }
+
+    /* 각 스트릿 레이어에 다른 회전과 애니메이션 적용 */
+    .stream-1 { transform: rotateZ(0deg) translateZ(0px); animation: stream-move 0.8s infinite linear; }
+    .stream-2 { transform: rotateZ(60deg) translateZ(-100px); animation: stream-move 0.7s infinite linear 0.1s; opacity: 0.8; }
+    .stream-3 { transform: rotateZ(-45deg) translateZ(-200px); animation: stream-move 0.9s infinite linear 0.2s; opacity: 0.6; }
+    .stream-4 { transform: rotateZ(120deg) translateZ(-300px); animation: stream-move 0.6s infinite linear 0.3s; opacity: 0.9; }
+
+    /* 정보 스파크 (Image 1 기반) */
+    .void-spark {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      background: repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.2) 0px, rgba(255, 255, 255, 0.2) 2px, transparent 2px, transparent 10px
+      );
+      mix-blend-mode: overlay;
+      transform: scale(1.5);
+      opacity: 0;
+    }
+    .spark-1 { transform: rotate(15deg) translateZ(50px); animation: spark-flicker 0.2s infinite ease-out; }
+    .spark-2 { transform: rotate(-10deg) translateZ(100px); animation: spark-flicker 0.2s infinite ease-out 0.1s; }
+
+    /* 2-1-3. 세상 모든 정보 텍스트 범람 (유지하되 더 혼돈스럽게) */
+    .random-info-stream {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      color: rgba(255, 255, 255, 0.1); /* 기본적으로 어둡게, 깜빡임으로 강조 */
+      font-size: 1.2rem;
+      font-family: 'Courier New', monospace; /* 정보 느낌을 주는 고정폭 글꼴 */
+      user-select: none;
+      display: grid;
+      grid-template-columns: repeat(20, 1fr); /* 텍스트를 그리드로 배치 */
+      grid-template-rows: repeat(30, 1fr);
+      opacity: 0;
+    }
+
+    /* JavaScript로 수많은 정보를 생성하여 오버레이 */
+
+    /* 2-2. 고요함 단계 (뇌 정지) - 새로운 단계 */
+    .void-stillness-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9); /* 완전 어둡게 */
+      mix-blend-mode: normal;
+      opacity: 0;
+      transform: scale(1);
+    }
+
+    /* 2-3. "하얀 물을 던지는" 소멸 단계 - 새로운 단계 */
+    .white-splash-burst {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle, #fff 30%, rgba(255,255,255,0) 70%);
+      mix-blend-mode: normal;
+      opacity: 0;
+      transform: scale(1);
+      pointer-events: none;
+    }
+
+    /* -----------------------------------------
+       3. 애니메이션 시퀀스 제어 (MODIFIED)
+    ------------------------------------------ */
+    
+    /* [공통] 화면 진동 강도 조절 (무량공처는 더 강력하게) */
+    .stage.shake-murasaki { animation: shake-heavy 2.5s cubic-bezier(.36,.07,.19,.97) both; }
+    .stage.shake-void-overload { animation: shake-void-chaotic-v2 5.5s cubic-bezier(0.1, 0.8, 0.1, 1) both; }
+
+    /* [무라사키 활성화] 유지 */
+    .stage.murasaki-active .blue { animation: blue-charge 1.8s forwards cubic-bezier(0.6, -0.28, 0.735, 0.045); }
+    .stage.murasaki-active .red { animation: red-charge 1.8s forwards cubic-bezier(0.6, -0.28, 0.735, 0.045); }
+    .stage.murasaki-active .purple-core { animation: murasaki-blast 3s 1.7s forwards cubic-bezier(0.1, 0.8, 0.1, 1); }
+    .stage.murasaki-active .distortion { animation: distort-wave 3s 1.7s forwards ease-out; }
+
+    /* [무량공처 활성화 v2] 완전히 변경 */
+    .stage.void-active .void-container { opacity: 1; transition: opacity 0.2s; }
+
+    /* 1단계: 정보 폭발 (터널, 블랙홀, 스파크, 텍스트) - 3.5초까지 고조 */
+    .stage.void-active .void-blackhole { animation: blackhole-open 3s cubic-bezier(0.1, 0.9, 0.2, 1) forwards; }
+    .stage.void-active .void-space-dust { animation: dust-open 3s cubic-bezier(0.1, 0.9, 0.2, 1) forwards; }
+    .stage.void-active .information-tunnel { animation: tunnel-start-v2 4.5s ease-out forwards; }
+    .stage.void-active .void-spark { opacity: 0.8; transition: opacity 0.3s; }
+    .stage.void-active .random-info-stream { animation: info-flood-v2 4.5s ease-in-out forwards; }
+    
+    /* 2단계: 고요함 (뇌 정지 오버레이) - 3.5초에서 4.0초 사이에 서서히 고요함으로 */
+    .stage.void-active .void-stillness-overlay { animation: void-stillness 4s cubic-bezier(0.3, 0.1, 0.1, 1) forwards; }
+
+    /* 3단계: "하얀 물 던지기" 폭발 (물뿌리기 섬광) - 4.0초에서 시작 */
+    .stage.void-active .white-splash-burst { animation: white-splash 5s cubic-bezier(0.1, 0.8, 0.1, 1) forwards; }
+
+    /* -----------------------------------------
+       4. KEYFRAMES (무량공처 연출 핵심 v2 - MODIFIED)
+    ------------------------------------------ */
+    
+    /* 정보 터널 스트릿 고속 이동 (유지) */
+    @keyframes stream-move {
+      0% { transform: rotateZ(inherit) translateZ(0px) scale(1); }
+      100% { transform: rotateZ(inherit) translateZ(1200px) scale(0.1); } /* perspective 효과로 고속 터널 구현 */
+    }
+
+    /* 정보 스파크 미끼 (유지) */
+    @keyframes spark-flicker {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    /* 1단계: 정보 폭발 */
+    /* 블랙홀 개안 (Image 0 기반) */
+    @keyframes blackhole-open {
+      0% { transform: scale(0); opacity: 0; filter: blur(50px); }
+      5% { transform: scale(1.5); opacity: 1; filter: blur(10px); }
+      10% { transform: scale(1); filter: blur(0px); mix-blend-mode: normal; }
+      85% { opacity: 1; transform: scale(1) translateZ(0px); filter: blur(0px); mix-blend-mode: normal; }
+      90% { opacity: 0; transform: scale(1.1) translateZ(100px); filter: blur(20px); } /* 고요함으로 넘어가며 소멸 */
+      100% { opacity: 0; }
+    }
+    /* 우주 먼지 전개 */
+    @keyframes dust-open {
+      0% { transform: scale(1.5); opacity: 0; }
+      15% { transform: scale(1); opacity: 0.1; }
+      85% { opacity: 0.1; }
+      100% { opacity: 0; }
+    }
+    /* 정보 터널 전개 및 소멸 v2: 현실 반전 -> 터널 -> 고요함 소멸 */
+    @keyframes tunnel-start-v2 {
+      0% { transform: scale(0); opacity: 0; filter: invert(0); }
+      8% { transform: scale(1.5); opacity: 1; filter: invert(1); } /* 순간 현실 반전 */
+      15% { transform: scale(1); opacity: 1; filter: invert(0); background: #000; }
+      75% { opacity: 1; transform: scale(1); filter: blur(0px); }
+      85% { opacity: 0; transform: scale(1.1); filter: blur(20px); } /* 고요함으로 넘어가며 소멸 */
+      100% { opacity: 0; transform: scale(3); filter: blur(50px); }
+    }
+    /* 정보 텍스트 과부하 v2 (유지하되 타임라인 조정) */
+    @keyframes info-flood-v2 {
+      0% { opacity: 0; transform: scale(1); }
+      10% { opacity: 0.1; color: #fff; }
+      15% { opacity: 0.3; color: #ff0; text-shadow: 0 0 5px #fff; }
+      20% { opacity: 0.8; color: #0ff; transform: scale(1.1); filter: blur(0px); }
+      25%, 75% { 
+        opacity: 0.9; 
+        color: #fff; 
+        transform: scale(1); 
+        text-shadow: 0 0 10px #fff, 0 0 20px #ff0, 0 0 30px #0ff, 0 0 40px #f0f;
+        filter: blur(1px);
+        background: radial-gradient(circle, rgba(0,0,0,0.8), rgba(0,0,0,0) 70%); /* 텍스트 가독성 확보 */
+      }
+      85% { opacity: 0; transform: scale(1.3); filter: blur(5px); } /* 고요함으로 넘어가며 소멸 */
+      100% { opacity: 0; transform: scale(3); }
+    }
+
+    /* 2단계: 고요함 (뇌 정지 오버레이) */
+    @keyframes void-stillness {
+      0% { opacity: 0; filter: grayscale(0); }
+      75% { opacity: 0; filter: grayscale(0); }
+      80% { opacity: 1; filter: grayscale(1); mix-blend-mode: saturation; } /* 고요함 순간으로 변환 */
+      85% { opacity: 1; filter: grayscale(1); mix-blend-mode: saturation; } /* 완전 고요함 */
+      90% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    /* 3단계: "하얀 물 던지기" 폭발 (물뿌리기 섬광) - 새로운 단계 */
+    @keyframes white-splash {
+      0% { opacity: 0; transform: scale(1); box-shadow: none; }
+      80% { opacity: 0; transform: scale(1); } /* 고요함 동안 숨김 */
+      82% { 
+        opacity: 1; 
+        transform: scale(1.5); 
+        /* 하얀 물을 던진 듯한 불규칙한 모양 시뮬레이션 */
+        box-shadow: 
+          -10vw -10vh 50vw 20vw #fff, 
+          15vw -5vh 40vw 30vw #fff, 
+          -5vw 15vh 60vw 15vw #fff,
+          10vw 10vh 30vw 10vw #fff;
+        filter: blur(5px);
+      }
+      90% { 
+        opacity: 1; 
+        transform: scale(8); 
+        box-shadow: 
+          -30vw -30vh 100vw 100vw #fff, 
+          50vw -15vh 100vw 100vw #fff, 
+          -15vw 50vh 100vw 100vw #fff,
+          30vw 30vh 100vw 100vw #fff;
+        filter: blur(20px);
+      }
+      100% { 
+        opacity: 0; 
+        transform: scale(30); 
+        filter: blur(50px);
+      }
+    }
+
+    /* 무량공처 전용 지진 v2: 정보 폭발은 강력하게, 고요함에서는 멈춤, 최종폭발은 미친 듯이 */
+    @keyframes shake-void-chaotic-v2 {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      7% { transform: translate(-40px, 30px) rotate(-5deg) contrast(3); }
+      10% { transform: translate(40px, -30px) rotate(6deg) contrast(1); }
+      13% { transform: translate(-35px, -20px) rotate(-4deg); }
+      16% { transform: translate(30px, 25px) rotate(3deg); }
+      20% { transform: translate(0, 0) rotate(0deg); }
+      
+      /* 정보 범람 단계에서 강력하게 뒤흔듦 */
+      25%, 75% { transform: translate(10px, -10px) rotate(1deg); } 
+
+      /* 고요함 단계 (3.5s-4.0s)에서 진동을 서서히 줄여 4초에 완전히 멈춤 */
+      76% { transform: translate(2px, -2px) rotate(0.1deg); }
+      80% { transform: translate(0, 0) rotate(0deg); } /* 완전 정적 */
+
+      /* 최종 "하얀 물뿌리기" 폭발 (4.0s-5.5s) 시 미친 듯이 뒤흔듦 */
+      83% { transform: translate(-20px, 20px) rotate(-2deg); }
+      86% { transform: translate(30px, -30px) rotate(3deg); }
+      89% { transform: translate(-40px, 40px) rotate(-4deg); }
+      92% { transform: translate(50px, -50px) rotate(5deg); }
+      95% { transform: translate(-30px, 30px) rotate(-3deg); }
+      98% { transform: translate(10px, -10px) rotate(1deg); }
+      100% { transform: translate(0,0) rotate(0deg); }
+    }
+
+    /* 기존 무라사키 키프레임 유지 */
+    @keyframes blue-charge {
+      0% { opacity: 0; transform: translateX(-300px) rotate(0deg) scale(0.5); }
+      20% { opacity: 1; transform: translateX(-200px) rotate(180deg) scale(1.2); filter: drop-shadow(0 0 20px #00f); }
+      75% { transform: translateX(-50px) rotate(540deg) scale(0.8); }
+      100% { opacity: 1; transform: translateX(0px) rotate(720deg) scale(0); filter: blur(10px); }
+    }
+    @keyframes red-charge {
+      0% { opacity: 0; transform: translateX(300px) rotate(0deg) scale(0.5); }
+      20% { opacity: 1; transform: translateX(200px) rotate(-180deg) scale(1.2); filter: drop-shadow(0 0 20px #f00); }
+      75% { transform: translateX(50px) rotate(-540deg) scale(0.8); }
+      100% { opacity: 1; transform: translateX(0px) rotate(-720deg) scale(0); filter: blur(10px); }
+    }
+    @keyframes murasaki-blast {
+      0% { opacity: 0; transform: scale(0); box-shadow: 0 0 50px #fff, 0 0 100px #ba00ff; }
+      5% { opacity: 1; transform: scale(0.3); box-shadow: 0 0 200px 100px #fff, 0 0 400px 200px #7a00ff; }
+      15% { transform: scale(2.5) rotate(45deg); border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%; box-shadow: 0 0 60px #fff, 0 0 120px #ba00ff, 0 0 200px #4b0082, inset 0 0 40px #fff; }
+      25% { transform: scale(6) rotate(180deg); border-radius: 60% 40% 30% 70% / 50% 30% 70% 50%; box-shadow: 0 0 100px 20px #fff, 0 0 200px 50px #ba00ff, 0 0 500px 100px #000, inset 0 0 60px #ba00ff; }
+      40% { transform: scale(8) rotate(360deg); opacity: 1; }
+      100% { transform: scale(30) rotate(720deg); opacity: 0; filter: blur(50px); }
+    }
+    @keyframes distort-wave {
+      0% { opacity: 0; transform: scale(0) rotate(0deg); }
+      10% { opacity: 0.8; border-radius: 50% 40% 60% 50%; }
+      30% { opacity: 0.5; transform: scale(12) rotate(180deg); }
+      100% { opacity: 0; transform: scale(25) rotate(360deg); }
+    }
+    @keyframes shake-heavy {
+      0%, 100% { transform: translate(0, 0); }
+      60% { transform: translate(0, 0); }
+      68% { transform: translate(-15px, 15px) rotate(-1deg); }
+      72% { transform: translate(15px, -10px) rotate(2deg); }
+      76% { transform: translate(-20px, -15px) rotate(-2deg); }
+      80% { transform: translate(20px, 15px) rotate(1deg); }
+      84% { transform: translate(-10px, 10px) rotate(0deg); }
+      88% { transform: translate(10px, -5px) rotate(-1deg); }
+      92% { transform: translate(-5px, -5px) rotate(0deg); }
+    }
+
+    /* -----------------------------------------
+       5. UI 버튼 레이아웃 (유지)
+    ------------------------------------------ */
+    .btn-container {
+      position: absolute;
+      bottom: 8%;
+      z-index: 100;
+      display: flex;
+      gap: 20px;
+    }
+
+    .trigger-btn {
+      background: transparent;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 3px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    /* 무라사키 버튼 */
+    #murasakiBtn {
+      color: #9400d3;
+      border: 2px solid #9400d3;
+      text-shadow: 0 0 10px #9400d3;
+      box-shadow: 0 0 15px rgba(148, 0, 211, 0.3);
+    }
+    #murasakiBtn:hover:not(:disabled) {
+      color: #fff;
+      background: #9400d3;
+      box-shadow: 0 0 30px #ba00ff;
+    }
+
+    /* 무량공처 버튼 */
+    #voidBtn {
+      color: #00d2ff;
+      border: 2px solid #00d2ff;
+      text-shadow: 0 0 10px #00d2ff;
+      box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+    }
+    #voidBtn:hover:not(:disabled) {
+      color: #000;
+      background: #fff;
+      border-color: #fff;
+      box-shadow: 0 0 35px #fff, 0 0 70px #00d2ff;
+    }
+    
+    .trigger-btn:disabled {
+      opacity: 0.1;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stage" id="stage">
+    <div class="energy blue"></div>
+    <div class="energy red"></div>
+    <div class="distortion"></div>
+    <div class="purple-core"></div>
+    
+    <div class="void-container">
+      <div class="information-tunnel">
+        <div class="void-space-dust"></div>
+        <div class="void-blackhole"></div>
+        
+        <div class="tunnel-stream stream-1"></div>
+        <div class="tunnel-stream stream-2"></div>
+        <div class="tunnel-stream stream-3"></div>
+        <div class="tunnel-stream stream-4"></div>
+        
+        <div class="void-spark spark-1"></div>
+        <div class="void-spark spark-2"></div>
+      </div>
+      
+      <div class="random-info-stream" id="randomInfoStream"></div>
+      
+      <div class="void-stillness-overlay"></div>
+
+      <div class="white-splash-burst"></div>
+    </div>
+    
+    <div class="btn-container">
+      <button class="trigger-btn" id="murasakiBtn">虛式 「紫」</button>
+      <button class="trigger-btn" id="voidBtn">領域展開 「無量空処」</button>
+    </div>
+  </div>
+
+  <script>
+    const stage = document.getElementById('stage');
+    const murasakiBtn = document.getElementById('murasakiBtn');
+    const voidBtn = document.getElementById('voidBtn');
+    const infoStream = document.getElementById('randomInfoStream');
+
+    // 무작위 문자, 숫자, 기호 생성 함수 (유지)
+    function createRandomInfoText() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>/?ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ";
+      let text = "";
+      for (let i = 0; i < 50; i++) { // 각 칸에 50글자씩
+        text += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return text;
+    }
+
+    // 미친 듯이 깜빡이는 무작위 정보 그리드 초기화 (유지)
+    function initRandomInfoGrid() {
+      infoStream.innerHTML = ''; // 기존 내용 삭제
+      for (let i = 0; i < 600; i++) { // 20x30 그리드
+        const infoBlock = document.createElement('span');
+        infoBlock.textContent = createRandomInfoText();
+        
+        // 미친 듯한 깜빡임 효과 (미세하게 다른 딜레이)
+        infoBlock.style.animation = `info-flicker ${0.1 + Math.random() * 0.2}s infinite step-end`;
+        infoBlock.style.animationDelay = `${Math.random() * 0.1}s`;
+
+        infoStream.appendChild(infoBlock);
+      }
+    }
+
+    // 정보 텍스트 미친 듯한 깜빡임 키프레임 생성 (유지)
+    const styleSheet = document.styleSheets[0];
+    styleSheet.insertRule(`
+      @keyframes info-flicker {
+        0%, 100% { opacity: 0; color: #fff; }
+        10% { opacity: 1; color: #ff0; text-shadow: 0 0 10px #fff, 0 0 20px #ff0; }
+        15% { opacity: 0; }
+        20% { opacity: 1; color: #0ff; text-shadow: 0 0 10px #fff, 0 0 20px #0ff; }
+        25% { opacity: 0.5; color: #f0f; }
+        30% { opacity: 1; color: #fff; text-shadow: 0 0 10px #fff; }
+        35%, 95% { opacity: 0.1; color: rgba(255,255,255,0.1); }
+      }
+    `, styleSheet.cssRules.length);
+
+
+    // 1. 허식 무라사키 트리거 (유지)
+    murasakiBtn.addEventListener('click', () => {
+      toggleButtons(true);
+      stage.classList.add('murasaki-active', 'shake-murasaki');
+
+      setTimeout(() => {
+        stage.classList.remove('murasaki-active', 'shake-murasaki');
+        toggleButtons(false);
+      }, 5000);
+    });
+
+    // 2. 영역전개 무량공처 트리거 (정보 폭발 v2 수정)
+    voidBtn.addEventListener('click', () => {
+      toggleButtons(true);
+      initRandomInfoGrid(); // 무작위 정보 그리드 생성
+      stage.classList.add('void-active', 'shake-void-overload');
+
+      // 애니메이션 시퀀스 전체 종료(5.2초 부근) 후 원상 복구 (고요함과 물던지기를 위해 타임아웃 연장)
+      setTimeout(() => {
+        stage.classList.remove('void-active', 'shake-void-overload');
+        infoStream.innerHTML = ''; // 정보 텍스트 제거
+        toggleButtons(false);
+      }, 5500);
+    });
+
+    function toggleButtons(state) {
+      murasakiBtn.disabled = state;
+      voidBtn.disabled = state;
+    }
+  </script>
+</body>
+</html>

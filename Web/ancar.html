@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>앵커 만 들 기</h1>
+    <ul>
+        <li><a href="#menu1">수강신청</a></li>
+        <li><a href="#menu2">여긴 다 비상사태</a></li>
+        <li><a href="#menu3">정건우의 인생 골 3</a></li>
+        <li><a href="#menu4">개인정보 수집</a></li>
+        <li><a href="#menu5">실습</a></li>
+    </ul>
+    <h2 id="menu1">메뉴 1</h2>
+    <p>메뉴 1의 내용입니다.</p>
+    <h1>수강 분야(다수 선택 가능)</h1>
+    <ul>
+        <li><input type ="checkbox" id="subject1">문법</li>
+        <li><input type ="checkbox" id="subject2">작문</li>
+        <li><input type ="checkbox" id="subject3">독해</li>
+    </ul>
+    <h1>수강 과목(1과목만 선택 가능)</h1>
+    <ul>
+
+        <li><lable><input type ="radio" name="subject"></lable>영어회화</li>
+        <li><lable><input type ="radio" name="subject"></lable>중국어회화</li>
+        <li><lable><input type ="radio" name="subject">일어회화</lable></li>
+    </ul>
+    <br>
+    <h2 id="menu2">다 비상사태</h2>
+    <p>다 비상사태 다 비상사태</p>
+    <br>
+        <p>다 비상사태 다 비상사태</p>
+    <br>    <p>다 비상사태</p>
+    <br>
+    <h2 id="menu3">정건우의 하이라이트 3</h2>
+    <p>메뉴 3의 내용입니다.</p>
+    <br>    <p>메뉴 3의 내용입니다.</p>
+    <br>    <p>메뉴 3의 내용입니다.</p>
+    <br>    <p>메뉴 3의 내용입니다.</p>
+    <br>차희망 정건우 크로스<br>
+    헤딩<br>
+    축구선수 정건우<br>
+    슛~~!!~~<br>
+    골!!!!!!!!<br>
+    골!!!!!!!!<br>
+    골!!!!!!!!<br>
+    골!!!!!!!!<br>
+    골!!!!!!!!<br>
+    골!!!!!!!!<br>
+    골!!!!!!!!<br>
+    골!!!!!!!!<br>
+    골!!!!!!!!<br>
+    골!!!!!!!!<br>
+    <h1 id ="menu4">개인정보</h1>
+        <form>
+            <fieldset>
+                <legend>개인 정보</legend>
+                <ul>
+                    <li>
+                        <lable for ="name">이름</lable>
+                        <input type="text" id="name"></input>
+                    </li>
+
+                    <li>
+                        <lable for ="name">메일 주소</lable>
+                        <input type="text" id="mail"></input>
+                    </li>
+                    
+                </ul>
+            </fieldset>
+            <fieldset>
+                <legend>로그인 정보</legend>
+                <ul>
+                    <li>
+                        <lable for="id">아이디</lable>
+                        <input type="text" id="pw"></input>
+                    </li>
+                    <li>
+                        <lable for="id">비밀번호</lable>
+                        <input type="text" id="pw"></input>
+                    </li>
+                </ul>
+            </fieldset>
+            <fieldset>
+                <ul>
+                    <lable for="name">아이디</lable>
+                    <input type="text" id="pw">
+                    <lable for="name">비밀번호</lable>
+                    <input for="name" type="password">
+                    <button>로그인</button>
+                </ul>
+            </fieldset>
+        </form>
+    <h1>실습</h1>
+        <form>
+            <fieldset>
+                <legend>신청 과목</legend>
+                <ul>
+                    <p>이 달에 신청할 과목을 선택하세요(1과목만 가능)</p>
+                    <label for="name"><input type="radio">회화</label>
+                    <lable for="name"><input type=radio>문법</lable>
+                    <lable for="name"><input type=radio>작문</lable>
+                </ul>
+            </fieldset>
+            <fieldset>
+                <legend>메일링</legend>
+                <ul>
+                    <p>메일로 받고 싶은 뉴스 주제를 선택해 주세요(복수 선택 가능)</p>
+                    <lable for="news"><input type="checkbox">해외 단신</lable>
+                    <lable for="news"><input type="checkbox">5분 회화</lable>
+                    <lable for="news"><input type="checkbox">모닝팝스</lable>
+                </ul>
+            </fieldset>
+        </form>
+        <lable><input type="date" id="start"></lable>
+        <lable><input type="date" id="end"></lable>
+        <form action="register.php" method="post">
+            <lable>메일주소<input type="text"></lable>
+            <input type="submit" value="제출">
+            <input type="reset" value="다시 입력">
+
+        </form>
+        <label for="uname">이름</label>
+        <input type="text" id="uname" autofocus required>
+        <lable for="name">이름</lable>
+        <input type="text" id="uname" placeholder="name"><br>
+
+
+
+
+
+
+
+
+
+        <form>
+            <fieldset>
+                <legend>배송 정보</legend>
+                <ul>
+                    <lable for="dd">
+                        <li>주문 상품 <input type="text" id="dd" value="상품용 3kg"></li>
+                        <li>이름 <input id="dd" type="text"></li>
+                        <li>주소 <input type="text" id="dd"></li>
+                        <li>이메일 <input type="text" id="dd"></li>
+                        <li>연락처 <input type="text" id="dd" placeholder="하이픈 빼고 입력"></li>
+                        <li>배송 지정 <input type="date" value="2025-03-18">(주문일로부터 최소 3일 이후)</li>
+                    </lable>
+                </ul>
+            </fieldset>
+                <button>주문하기</button>
+                <button>취소하기</button>
+        </form>
+</body>
+</html>

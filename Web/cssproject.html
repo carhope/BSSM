@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>position: fixed 실제 예시</title>
+    <style>
+        /* 1. 배경을 아주 길게 만들기 (스크롤이 생기도록!) */
+        body {
+            height: 2000px; /* 아주 긴 종이로 만들기 */
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        /* 2. 이게 바로 '화면 껌딱지' 맨 위로 버튼! */
+        #go-top {
+            /* ★ 여기가 핵심! ★ */
+            position: fixed;       /* "화면 유리창에 딱! 붙어있어!" (고정 배치) */
+            bottom: 20px;        /* "바닥(bottom)에서 20만큼 위로 가!" */
+            right: 20px;         /* "오른쪽(right)에서 20만큼 왼쪽으로 가!" */
+
+            /* --- 버튼 디자인 (예쁘게 만들기) --- */
+            width: 80px;         /* 버튼 가로 크기 */
+            height: 80px;        /* 버튼 세로 크기 (동그라미로 만들게!) */
+            background-color: #8e44ad; /* 보라색 배경 */
+            color: white;         /* 하얀색 글씨 */
+            border-radius: 50%;   /* "동그라미 버튼으로 변신!" */
+            display: flex;        /* 글씨를 가운데로 정렬하기 */
+            justify-content: center; /* 가로 가운데 */
+            align-items: center;    /* 세로 가운데 */
+            font-size: 20px;      /* 글씨 크기 */
+            cursor: pointer;      /* 마우스 올리면 '클릭' 모양으로 변하기 */
+            z-index: 1000;         /* "다른 것보다 위에 떠 있어!" */
+        }
+    </style>
+</head>
+<body>
+
+    <h4 id="top">position: fixed 실제 예시</h4>
+    <h1>팀원 소개</h1>
+    <h2>차희망</h2>
+    <a href="https://schoolwiki.org/s/bssm-hs-kr/w/차희망">그의 스쿨위키</a>
+    <p>차: 차원이 다른 디자인 실력을 가진</p>
+    <p>희: 희망찬 우리 팀의 리더</p>
+    <p>망: 망설이지 말고 우리 팀에게 맡겨주세요!</p>
+    <h2>박혜리</h2>
+    <p>박: 박수가 절로 나오는 코딩 실력</p>
+    <p>혜: 혜성처럼 나타난 CSS 천재</p>
+    <p>리: 리(이) 시대 최고의 웹 디자이너, 박혜리!</p>
+    <h2>김정원</h2>
+    <p>김: 김이 모락모락 나는 따끈따끈한 아이디어로</p>
+    <p>정: 정말 멋진 웹사이트를 만드는</p>
+    <p>원: 원숭이 개발자, 김정원!</p>
+    <h2>정수진</h2>
+    <p>정: 정성 가득 담아 한 땀 한 땀 코딩하는</p>
+    <p>수: 수백 번의 에러도 이겨내는 끈기</p>
+    <p>진: 진정한 프로의 모습, 정수진!</p>
+    <a href="#top" id="go-top">↑<br>맨 위로</a>
+
+</body>
+</html>

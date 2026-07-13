@@ -1,0 +1,97 @@
+<!-- js_02_01.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .carousel {
+        width: 300px;
+        height: 200px;
+        overflow: hidden;
+        border: 2px solid #333;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        }
+
+        .track {
+        display: flex;
+        transition: transform 0.4s ease-in-out;
+        }
+
+        .slide {
+        width: 300px;
+        height: 200px;
+        object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel">
+        <div class="track">
+            <img src = "나.jpeg" class="slide"/>
+            <img src = "legendbackground.png" class="slide"/>
+            <img src = "jiwoo.jpg" class="slide"/>
+            <img src="bssm.png" class="slide">
+        </div>
+    </div>
+<button id=nextBtn> 다음 </button>
+<button id="beforeBth">이전</button>
+<script>
+    const track = document.querySelector('.track');
+    const slides = document.querySelectorAll('.slide');
+    const nextBtn = document.getElementById('nextBtn');
+    const beforeBth = document.getElementById('beforeBth')
+
+    let currentIndex = 0;
+
+    // sc_02.js
+    function moveSlide() {
+        if (currentIndex < 3){
+            track.style.transform = `translateX(-${300*currentIndex}px)`;
+        }
+        else if (currentIndex < 0){
+            track.style.transform = `translateX(-${300*currentIndex}px)`
+            currentIndex = 0;
+        }
+        else {
+            track.style.transform = `translateX(+${300*currentIndex*currentIndex}px)`;
+            currentIndex = 0;
+        }
+        
+        }
+    function beforeSlide() {
+    track.style.transform = `translateX(+${300*currentIndex}px)`;
+    }
+
+    nextBtn.addEventListener('click', () => {
+    currentIndex++;
+    moveSlide();
+    });
+    beforeBth.addEventListener('click',() => {
+        currentIndex--;
+        beforeSlide()
+    })
+    document.addEventListener('keydown',(event)=>{
+        switch (event.key){
+            case 'ArrowLeft':
+                currentIndex--;
+                BeforeSlide();
+                break;
+            case 'ArrowRight':
+                currentIndex++;
+                moveSlide();
+                break;
+        }
+    })
+    setInterval(()=>{
+        currentIndex++;
+        moveSlide()
+    }, 3000
+        
+    );
+
+</script>
+</body>
+</html>

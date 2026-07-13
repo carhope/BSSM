@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .a{
+            background-color: blue;
+            padding: 5px;
+            color:aliceblue;
+            display:none;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="a">알림<div id="a">닫기</div></div>
+
+    <button onclick="openalert()">버튼</button>
+    <script>
+        function openalert(){
+            document.getElementById('a').style.display='block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학교 축제 신청</title>
+</head>
+<body>
+    <h1 id="menu4">학교 축제 참가 신청 종합 프로젝트</h1>
+    <p>앵커,목록,달력,select,progress 태그를 모두 활용한 html 실습입니다.</p>
+    <id="menu">
+        <li><a href="#menu1">행사 소개</a></li>
+        <li><a href="#menu2" color="red">진행 순서</a></li>
+        <li><a href="#menu3">참가 신청</a></li>
+        
+    </ul>
+    <h2 id="menu1">행사 소개</h2>
+    <ul>
+        <li>웹 프로그래밍 체험 부스</li>
+        <li>AI 작품 전시</li>
+        <li>게임 제작 체험</li>
+    </ul>
+    <h2 id="menu2">행사 진행 순서</h2>
+    <ol>
+        
+        <li>입장 및 출석 확인</li>
+        <li>희망 부스 선택</li>
+        <li>체험 진행</li>
+        <li>만족도 조사</li>
+    </ol>
+    <legend>현재 신청 진행률</legend>
+    <lable>
+        <progress value="70" max="100"></progress>70%
+    </lable>
+    <h2 id="menu3">참가 신청 폼</h2>
+    <form>
+        <fieldset>
+            <legend>기본 정보</legend>
+            <label>
+                이름:<input><br><br>
+                참가 날짜:<input type="date"><br><br>
+                희망 시간:<input type="time"><br><br>
+                참가 부스:
+                <label class="reg" for="class">
+                    <select id="class">
+                    <option>웹 프로그래밍</option>
+                    <option>AI 작품 전시</option>
+                    <option>게임 제작 체험</option>
+                    </select>
+                </label>
+            </label>
+        </fieldset>
+    </form>
+    <button>신청완료</button>
+    <p> <a href="#menu4">맨위로</a></p>
+</body>
+</html>

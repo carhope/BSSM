@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS 배치 복습하기</title>
+    <style>
+        /* 1. static: 기본 배치 (그냥 쌓임) */
+        body { height: 1500px; position: static; background: #f9f9f9; padding: 20px; }
+
+
+
+        /* 2. float: 왼쪽으로 나란히 나열 */
+        .float-box { float: left; width: 100px; height: 100px; background: skyblue; margin: 5px; }
+
+        /* 3. relative: 원래 자리에서 20px씩 이동 */
+        .rel-box { 
+            position: relative; top: 20px; left: 20px;
+            width: 100px; height: 100px; background: lightgreen; 
+        }
+
+        /* 4. absolute: 부모(container)의 오른쪽 구석에 고정 */
+        .abs-box { 
+            position: absolute; bottom: 10px; right: 10px;
+            width: 80px; height: 80px; background: tomato; color: white;
+        }
+
+        /* 5. fixed: 화면(브라우저) 오른쪽 아래에 항상 고정 */
+        #fix-btn { 
+            position: fixed; bottom: 30px; right: 30px;
+            padding: 15px; background: gold; border-radius: 50%; text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>CSS 배치 속성 복습 노트</h2>
+
+    <div class="container">
+        <div class="float-box">1. float</div>
+        <div class="float-box">2. float</div>
+        <div style="clear:both;"></div> <div class="rel-box">3. relative</div>
+        
+        <div class="abs-box">4. absolute</div>
+    </div>
+
+    <a href="#" id="fix-btn">5. fixed</a>
+
+</body>
+</html>

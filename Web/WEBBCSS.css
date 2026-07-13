@@ -1,0 +1,36 @@
+*{
+    @import url('https://fonts.googleapis.com/css2?family=Moirai+One&display=swap');
+    font-family: "Moirai One", system-ui;
+}
+.accent{
+    font-variant:small-caps;
+    font-weight:bold;
+}
+section{
+width:500px;
+padding:15px;
+border:5px solid gray;
+}
+h2{
+font-size:20px;
+color:orange;
+}
+
+.school{
+    color:red;
+}
+.highschool{
+    color :navy;
+}
+#browntext{
+    color :brown;
+}
+.boldtext{
+    font-weight:bold;
+}
+.bu{
+    list-style-type:squre;
+}
+.nextbu{
+    text-indent: 30px;
+}
