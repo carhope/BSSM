@@ -13,20 +13,19 @@
 
 입력이 n m인 경우의 2차원 배열을 출력해보자.'''
 
-n,m = map(int, input().split(' '))
-b=n
-l=0
-k=0
+n, m = map(int, input().split())
 
-for i in range(1,5):
-    l+=i
-for i in range(1,n*m+1):
-    k=0
-    for j in range(1,n*m+1):
-        
-        if j==l:
-            b-=1
-            print()
-        elif i+j==k+j:
-            print(i+j)
-        k+=j
+arr = [[0] * m for _ in range(n)]
+
+num = 1
+
+for s in range(n + m - 1):
+    for i in range(n):
+        j = s - i
+
+        if 0 <= j < m:
+            arr[i][j] = num
+            num += 1
+
+for row in arr:
+    print(*row)
