@@ -1,4 +1,4 @@
-# Github 개념과 용어, 명령어 정리
+# Git & Github 학습 기록
 ## 가장 중요한 명령어 top10
 1. git status
 2. git add
@@ -27,6 +27,7 @@
 ### git pull
 
 - GitHub의 최신 변경사항을 가져오고 자동으로 병합(Merge) 한다.
+- git fetch + git merge 합체 명령어
 
 ### git fetch
 
