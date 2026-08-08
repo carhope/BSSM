@@ -40,8 +40,8 @@ int main(){
         }
         if (cur == 1){
             curlong++;
-            if (curlong<=1 && start <curlong){
-                start = i+1;
+            if (curlong<=1){
+                start = deadline - (longest-1);
             }
             if (curlong > longest){
                 longest = curlong;
