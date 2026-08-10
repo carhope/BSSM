@@ -52,10 +52,8 @@ int main(){
         if (longest==curlong){
             beststart = curstart;
         }
-
         
     }
-    deadline = (beststart + longest)-1;
     printf("%d %d %d",longest,beststart,deadline);
     
 
