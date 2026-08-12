@@ -47,16 +47,17 @@ int main(){
             }
             if (curlong > longest){
                 longest = curlong;
+                if (longest==curlong){
+                    beststart = curstart;
+                }
             }
         }
-        if (longest==curlong){
-            beststart = curstart;
-        }
-
-        
     }
+    if (longest ==0 && beststart == 0){
+        deadline = 0;
+    }
+    else{
     deadline = (beststart + longest)-1;
+    }
     printf("%d %d %d",longest,beststart,deadline);
-    
-
 }
