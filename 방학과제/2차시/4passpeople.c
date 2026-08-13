@@ -5,7 +5,37 @@ n개의 이름과 점수 입력받기 한줄에 이름과 점수 한개씩 n개�
 기준을 넘는 사람의 수 int passpeople = 0
 이름을 저장하는 배열 char name[n][100];
 점수를 저장하는 배열 int score[n]
-
+통과한 사람 인덱스 저장 배열 int pass[100];
+n번 for 문으로 이름, 점수을 입력받고
+점수가 p 이상이면 
+pass[passpeople] = *name[i]
+passpeople ++;
 출력 
-printf("%d %s",passpeople,
+printf("%d\n",passpeople);
+for문을 써서 
+pass[i]에 있는 이름 출력
+score[i]에 있는 점수 출력
 */
+
+#include <stdio.h>
+int main(){
+    int p;
+    scanf("%d",&p);
+    int n;
+    scanf("%d",&n);
+    int passpeople=0;
+    char *pass[100];
+    char name[n][100];
+    int score[100];
+
+    for (int i=0;i<n;i++){
+        scanf("%s %d",name[i],&score[i]);
+        if (score[i]>=p){
+            pass[i]=*name[i];
+            passpeople++;
+
+        }
+    }
+    printf("%d\n",passpeople);
+    for (int i=0;i<)
+}
