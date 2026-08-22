@@ -1,4 +1,4 @@
-/*기준 점수 int p
+'''/*기준 점수 int p
 p입력 받기
 n개의 이름과 점수 입력받기 한줄에 이름과 점수 한개씩 n개임
 
@@ -16,26 +16,21 @@ for문을 써서
 pass[i]에 있는 이름 출력
 score[i]에 있는 점수 출력
 */
+'''
+n,p = map(int,input().split(' '))
+passpeople = 0
+pas = []
+score = []
+name = []
 
-#include <stdio.h>
-int main(){
-    int p;
-    scanf("%d",&p);
-    int n;
-    scanf("%d",&n);
-    int passpeople=0;
-    char *pass[100];
-    char name[n][100];
-    int score[100];
+for i in range(n):
+	scorename = input()
+	score.append(int(scorename[scorename.find(' '):]))
+	name.append(scorename[:scorename.find(' ')])
+	if score[i]>=p:
+		passpeople +=1
+		pas.append(name[i])
 
-    for (int i=0;i<n;i++){
-        scanf("%s %d",name[i],&score[i]);
-        if (score[i]>=p){
-            pass[passpeople]=name[i];
-            passpeople++;
-
-        }
-    }
-    printf("%d\n",passpeople);
-    for (int i=0;i<)
-}
+print(passpeople)
+for i in pas:
+	print(i,end=" ")
