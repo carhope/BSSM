@@ -4,9 +4,15 @@
 # 구성
 BSSM
 ├── C [x]
+
 ├── Python [x]
+
 ├── Web [x]
+
 ├── Database [ ]
+
 ├── ComputerArchitecture [ ]
+
 ├── DataStructure [ ]
+
 └── README.md
