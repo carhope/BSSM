@@ -995,6 +995,3 @@ Merge
 
 ⸻
 
-이 정도까지 기존 1~2일차 내용 뒤에 붙이면 노션 자체가 그냥 발표 보조자료가 아니라 “Git/GitHub 처음 시작할 때 다시 보는 입문서”가 됨. 특히 Git → GitHub → Branch → PR → Workflow → Convention 순서라 처음 듣는 사람도 왜 다음 개념이 필요한지 따라갈 수 있어.
-
-그리고 지금 발표 시간이 코앞이니까 오늘 발표에서는 이걸 전부 설명하지 마. GitHub Flow → Git Flow와의 차이 → Convention → 실제 팀 Workflow까지만 큰 그림으로 보여주고, 세부 명령어와 CI/Protected Branch는 **“노션에 추가 자료로 정리해뒀으니 프로젝트 할 때 참고하세요”**로 넘기는 게 훨씬 깔끔해.
