@@ -2,7 +2,7 @@
 void sum10(int arr[],int size){
     for (int i=0;i<size-1;i++){
         for (int j=1;j<size;j++){
-            if (arr[i]+arr[j] >= 10){
+            if (arr[i]+arr[j] == 10 && i!=j && i<j){
                 printf("%d %d\n",arr[i],arr[j]);
             }
         }

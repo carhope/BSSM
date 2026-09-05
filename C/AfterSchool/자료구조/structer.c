@@ -31,6 +31,29 @@ struct Node* search(struct Node* head, int target){
     }
     return NULL;
 }
+struct Node* delete(struct Node* head, int target){
+    struct Node* current = head;
+    struct Node* prev = NULL;
+    while (current!=NULL&&current->data!=target){
+        prev = current;
+        current= current->next;
+    }
+    if (current != NULL){
+        return head;
+    }
+    if(prev == NULL){
+        head = current->next;
+    }
+    else{
+        prev->next = current->next;
+    }
+    free(current);
+    return head;
+}
+struct Node* insertBack(struct Node* head, int data){
+
+}
+
 int main(){
 
     //NewNode = malloc(sizeof(struct Node)); // 구조체 선언한다고 메모리 안줘서 동적할당(생성해서 첫 주소 반환)
