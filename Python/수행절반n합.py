@@ -4,3 +4,4 @@ def sum_half(n):
     m = (n-1)//2
     return 2 * sum_half(n//2) + m*m
 n = int(input())
+print(sum_half(n))
