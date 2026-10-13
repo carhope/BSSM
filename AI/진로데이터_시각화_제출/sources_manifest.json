@@ -1,0 +1,26 @@
+{
+  "2022": {
+    "file": "career_survey_2022_press.hwpx",
+    "page": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=294&boardSeq=93422&lev=0",
+    "url": "https://www.moe.go.kr/boardCnts/fileDown.do?m=020402&s=moe&fileSeq=a9d8d22bf4f8c7549b5154f0f56f8056",
+    "sha256": "487f9955b56cc28def61b27a97cee8863ae2037d5afd8aa8a7a862a64bced3fa"
+  },
+  "2023": {
+    "file": "career_survey_2023_press.hwpx",
+    "page": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=294&boardSeq=97201&lev=0",
+    "url": "https://www.moe.go.kr/boardCnts/fileDown.do?m=0204&s=moe&fileSeq=0f67b3077175d3d15da7e25504d1aca2",
+    "sha256": "f2a449c3584070d0d22e66d37092c357e237a6d6abfdd132b8c4bbe10d36746b"
+  },
+  "2024": {
+    "file": "career_survey_2024_press.hwpx",
+    "page": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=294&boardSeq=101832&lev=0",
+    "url": "https://www.moe.go.kr/boardCnts/fileDown.do?m=020402&s=moe&fileSeq=c496bb6bae5f38ac63b3ecde886a1bc8",
+    "sha256": "a096e676d9c925d8869b6137515d9b9aea120e255acffbdc71076fc6531ac42d"
+  },
+  "2025": {
+    "file": "career_survey_2025.pdf",
+    "page": "https://www.career.go.kr/cloud/w/courseEdu/course2025",
+    "url": "https://www.career.go.kr/data/data_2009/course/use/2025%EB%85%84%20%EC%B4%88%EC%A4%91%EB%93%B1%20%EC%A7%84%EB%A1%9C%EA%B5%90%EC%9C%A1%20%ED%98%84%ED%99%A9%EC%A1%B0%EC%82%AC.pdf",
+    "sha256": "af95637401cf326d9493cf956f8d94d7662ec4b764939d2dd5b7bb8dfd21831c"
+  }
+}
