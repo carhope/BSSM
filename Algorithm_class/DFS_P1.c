@@ -7,15 +7,14 @@ int visited[100];
 void DFS(int s, int t){
     
     visited[s] = 1;
-    for (int i=0;i<s;i++){
+    for (int i=0;i<n;i++){
+        if(s==t){
+            printf("YES");
+            return;
+        }
         if(arr[s][i]&&!visited[i]){
             DFS(i,t);
-            if(s==t){
-                printf("YES");
-                return;
-            }
         }
-
     }
     printf("NO");
 }
@@ -26,7 +25,7 @@ int main(){
     }
     scanf("%d %d",&s,&t);
     for (int i=0;i<m;i++){
-        visited[i] = -1;
+        visited[i] = 0;
     }
     DFS(s,t);
 }
