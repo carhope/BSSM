@@ -4,28 +4,34 @@
 int n,m,s,t;
 int arr[100][100];
 int visited[100];
-void DFS(int s, int t){
+int DFS(int s, int t){
+    if(s==t){
+        return 1;
+    }
     
     visited[s] = 1;
     for (int i=0;i<n;i++){
-        if(s==t){
-            printf("YES");
-            return;
-        }
         if(arr[s][i]&&!visited[i]){
-            DFS(i,t);
+            if(DFS(i,t)){
+                return 1;
+            }
         }
     }
-    printf("NO");
+    return 0;
 }
 int main(){
     scanf("%d %d",&n, &m);
     for (int i=0;i<m;i++){
-        scanf("%d %d",&arr[i][0],&arr[i][1]);
+        int a,b;
+        scanf("%d %d",&a,&b);
+        arr[a][b] = 1;
     }
     scanf("%d %d",&s,&t);
-    for (int i=0;i<m;i++){
-        visited[i] = 0;
+    
+    if(DFS(s,t)){
+        printf("YES");
     }
-    DFS(s,t);
+    else{
+        printf("NO");
+    }
 }
