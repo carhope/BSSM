@@ -11,9 +11,10 @@ int graph[N][N] = {
     {INF, INF, INF, 2, 1,0}
 
 };
-int dist[100];
+int dist[100] = {INF};
 int visited[100];
 int start = 0;
+
 int findMinVertex(){
     int min = INF;
     int minIndex = -1;
@@ -27,7 +28,7 @@ int findMinVertex(){
     return minIndex;
 }
 
-void dijkstra(int start){
+void printdi(){
     for (int i=0;i<N;i++){
         if(dist[i] == INF){
             printf("%c : INF\n",'A'+i);
@@ -36,6 +37,13 @@ void dijkstra(int start){
             printf("%c : %d\n",'A'+i,dist[i]);
         }
     }
+}
+
+void dijkstra(int start){
+    
+    dist[start] = 0;
+    
+
 }
 
 int main(){
