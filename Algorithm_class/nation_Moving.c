@@ -41,12 +41,29 @@ void printdi(){
 
 void dijkstra(int start){
     
-    dist[start] = 0;
-    
+    for (int i = 0; i<N;i++){
+        dist[i] = graph[start][i];
+    }
+    visited[start] = 1;
+    for (int i=0;i<N;i++){
+        int cur = findMinVertex();
+        visited[cur] = 1;
+        for (int j=0;j<N;j++){
+            if(!visited[j]){
+                if(dist[cur] + graph[cur][j] < dist[j]){
+                    dist[j] = dist[cur] + graph[cur][j];
+                }
+            }
+        }
+    }
 
 }
 
 int main(){
     dijkstra(start);
+    for(int i=0;i<N;i++){
+        printf("%d\n",dist[i]);
+    }
+    printdi();
     return 0;
 }
